@@ -15,6 +15,11 @@ import (
 var cepsData string
 var fileName string
 
+const (
+	RESET string = "\033[0m"
+	RED   string = "\033[31m"
+)
+
 func init() {
 	flag.StringVar(&cepsData, "cep", "", "Cep das regiões, separados por vírgula.")
 	flag.StringVar(&fileName, "file", "", "Arquivo contendo os ceps, 1 por linha.")
@@ -36,6 +41,8 @@ func (e Endereco) Stringfy() string {
 }
 
 func main() {
+	log.Println(RED, "Iniciando a busca dos endereços\n", RESET)
+	defer log.Println(RED, "Busca de endereços finalizada", RESET)
 	ceps, err := processCeps()
 	if err != nil {
 		log.Fatal("Um erro aconteceu:", err)
